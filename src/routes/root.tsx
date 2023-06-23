@@ -2,15 +2,16 @@ import { Link } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import Form from "../components/Form";
 import Input from "../components/Input";
-import { useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import type { ErrorState, TokenResponse } from "../type";
 import { useAppDispatch } from "../store/hooks";
 import { setToken } from "../store/slice/auth";
+import { useLoginMutation } from "../store/api/auth";
 
 function Root() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [login] = useLoginMutation();
   const [emailError, setEmailError] = useState<ErrorState>({
     isError: false,
     message: "",
@@ -49,36 +50,16 @@ function Root() {
     }
 
     try {
-      const tokenRequest = await fetch("http://localhost:8080/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+      const result = await login({
+        email,
+        password,
       });
 
-      if (!tokenRequest.ok) {
-        const errors = await tokenRequest.json();
-        console.log(errors);
-        toast({
-          title: "Validation failed",
-          description: errors.message,
-          status: "error",
-          position: "bottom-right",
-          isClosable: true,
-          duration: 9000,
-        });
-        return;
+      if (result.error) {
+        const error = new Error(`${result.error?.data.message}`);
+        error.statusCode = result.error.stauts;
       }
-      const { token }: TokenResponse = await tokenRequest.json();
-
-      dispatch(setToken(token));
-
-      localStorage.setItem("token", token);
-    } catch (error) {
+    } catch (error: any) {
       throw error;
     }
   }
