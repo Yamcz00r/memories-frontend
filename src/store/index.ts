@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import auth from "./slice/auth";
 import authApi from "./api/auth";
 export const store = configureStore({
