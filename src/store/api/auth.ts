@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { RootState } from "..";
 type RegisterCredentials = {
   userName: string;
   email: string;
@@ -28,9 +28,20 @@ type LoginResponse = {
   token: string;
 };
 
+export type UserInfo = {
+  userInfo: {
+    email: string;
+    userName: string;
+    createdAt: string;
+    id: string;
+  };
+};
+
 const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8080/auth" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:8080/auth",
+  }),
   endpoints: (builder) => ({
     register: builder.mutation<RegisterResponse, RegisterCredentials>({
       query: (credentials) => ({
@@ -46,9 +57,18 @@ const authApi = createApi({
         body: { ...credentials },
       }),
     }),
+    getUser: builder.query<UserInfo, string | null>({
+      query: (token) => ({
+        url: "/user",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation, useGetUserQuery } =
+  authApi;
 
 export default authApi;

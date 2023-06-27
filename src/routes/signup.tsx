@@ -7,7 +7,6 @@ import { useAppDispatch } from "../store/hooks";
 import { setToken } from "../store/slice/auth";
 import { useRegisterMutation, useLoginMutation } from "../store/api/auth";
 import { useToast } from "@chakra-ui/react";
-import TokenProvider from "../components/TokenProvider";
 
 export default function Signup() {
   const dispatch = useAppDispatch();
@@ -124,7 +123,7 @@ export default function Signup() {
   }
 
   return (
-    <TokenProvider place="register">
+    <>
       <header className="p-7 mb-20">
         <div className="font-bold text-3xl md:text-4xl xl:text-3xl">
           Memories
@@ -178,6 +177,6 @@ export default function Signup() {
           </Link>
         </div>
       </section>
-    </TokenProvider>
+    </>
   );
 }

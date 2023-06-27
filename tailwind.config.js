@@ -6,7 +6,11 @@ export default {
 
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundColor: {
+        'gray-hover': 'rgba(0, 0, 0, 0.05)'
+      }
+    },
   },
   plugins: [],
 }

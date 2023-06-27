@@ -7,7 +7,6 @@ import type { ErrorState, TokenResponse } from "../type";
 import { useAppDispatch } from "../store/hooks";
 import { setToken } from "../store/slice/auth";
 import { useLoginMutation } from "../store/api/auth";
-import TokenProvider from "../components/TokenProvider";
 
 function Root() {
   const [email, setEmail] = useState("");
@@ -103,7 +102,7 @@ function Root() {
   }
 
   return (
-    <TokenProvider place="login">
+    <>
       <header className="p-7  md:mb-32">
         <div className="font-bold text-3xl md:text-4xl xl:text-3xl">
           Memories
@@ -145,7 +144,7 @@ function Root() {
           </Link>
         </div>
       </section>
-    </TokenProvider>
+    </>
   );
 }
 
