@@ -9,7 +9,15 @@ export type TokenResponse = {
 
 export interface Post {
   id: string;
-  title;
+  description: string;
+  tag: string[];
+  imageUrl: string;
+  reactions: number | null;
+  authorId: string;
+  createdAt: string;
+  updatedAt: string;
+  comments: Comment[];
+  author: Pick<Author, "userName" | "id">;
 }
 
 export interface Author {
@@ -26,7 +34,7 @@ export interface Comment {
   authorId: string;
   content: string;
   postId: string;
-  author: Author;
+  author: Pick<Author, "userName" | "id">;
 }
 
 //TODO: UPDATE A POST INTERFACE
