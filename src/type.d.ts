@@ -7,6 +7,11 @@ export type TokenResponse = {
   token: string;
 };
 
+export interface Post {
+  id: string;
+  title;
+}
+
 export interface Author {
   id: string;
   userName: string;
@@ -21,4 +26,7 @@ export interface Comment {
   authorId: string;
   content: string;
   postId: string;
+  author: Author;
 }
+
+//TODO: UPDATE A POST INTERFACE
