@@ -6,3 +6,19 @@ export type TokenResponse = {
   message: string;
   token: string;
 };
+
+export interface Author {
+  id: string;
+  userName: string;
+  email: string;
+  password: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Comment {
+  id: string;
+  authorId: string;
+  content: string;
+  postId: string;
+}
