@@ -21,6 +21,8 @@ export default function Post({
   description,
   createdAt,
 }: PostProps) {
+  console.log(author);
+
   return (
     <PostContainer>
       <div className="my-3 flex justify-center w-full">

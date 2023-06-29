@@ -7,7 +7,7 @@ export type TokenResponse = {
   token: string;
 };
 
-export interface Post {
+export interface PostType {
   id: string;
   description: string;
   tag: string[];

@@ -4,6 +4,7 @@ import { useGetUserQuery } from "../store/api/auth";
 import { useGetPostsQuery } from "../store/api/posts";
 import PostContainer from "../components/Home/Container";
 import Post from "../components/Home/Post";
+import { useState } from "react";
 import Navbar from "../components/Home/Navbar";
 export default function Home() {
   const token = useAppSelector((state) => state.auth.token);
@@ -17,6 +18,7 @@ export default function Home() {
     error: postsError,
     isLoading: postsIsLoading,
   } = useGetPostsQuery();
+
   return (
     <TokenProvider>
       <Navbar user={user} error={userError} isLoading={userIsLoading} />
@@ -24,7 +26,7 @@ export default function Home() {
         {postsIsLoading ? "Loading..." : ""}
         {posts?.map((post) => {
           return (
-            <PostContainer>
+            <PostContainer key={post.id}>
               <Post
                 imageUrl={post.imageUrl}
                 reactions={post.reactions}
@@ -34,7 +36,6 @@ export default function Home() {
                 comments={post.comments}
                 tag={post.tag}
                 id={post.id}
-                key={post.id}
               />
             </PostContainer>
           );
