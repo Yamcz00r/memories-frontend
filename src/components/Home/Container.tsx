@@ -11,7 +11,7 @@ export default function PostContainer({
 }: PostContainerProps) {
   return (
     <div
-      className={`mx-auto w-2/5 rounded-md shadow-lg bg-white p-5 ${className}`}
+      className={`mx-auto w-2/5 rounded-md shadow-lg my-10 bg-white p-2 ${className}`}
     >
       {children}
     </div>
