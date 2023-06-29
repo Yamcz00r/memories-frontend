@@ -12,7 +12,6 @@ export default function TokenProvider({ children, place }: TokenProviderProps) {
   const token = useAppSelector((state) => state.auth.token);
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("here");
     const exisitingToken = localStorage.getItem("token");
     if (!token) {
       if (!exisitingToken) {

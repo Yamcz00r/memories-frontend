@@ -6,6 +6,7 @@ import PostContainer from "../components/Home/Container";
 import Post from "../components/Home/Post";
 import { useState } from "react";
 import Navbar from "../components/Home/Navbar";
+import Posts from "../components/Home/Posts";
 export default function Home() {
   const token = useAppSelector((state) => state.auth.token);
   const {
@@ -19,27 +20,14 @@ export default function Home() {
     isLoading: postsIsLoading,
   } = useGetPostsQuery();
 
+  console.log(posts);
+
   return (
     <TokenProvider>
       <Navbar user={user} error={userError} isLoading={userIsLoading} />
       <main className="bg-slate-100 w-full" style={{ height: "100vh" }}>
-        {postsIsLoading ? "Loading..." : ""}
-        {posts?.map((post) => {
-          return (
-            <PostContainer key={post.id}>
-              <Post
-                imageUrl={post.imageUrl}
-                reactions={post.reactions}
-                description={post.description}
-                createdAt={post.createdAt}
-                author={post.author}
-                comments={post.comments}
-                tag={post.tag}
-                id={post.id}
-              />
-            </PostContainer>
-          );
-        })}
+        {postsIsLoading && "Loading..."}
+        <Posts posts={posts} />
       </main>
     </TokenProvider>
   );

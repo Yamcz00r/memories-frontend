@@ -15,8 +15,6 @@ type NavbarProps = {
 };
 
 export default function Navbar({ user, error, isLoading }: NavbarProps) {
-  console.log(user, error, isLoading);
-
   return (
     <nav className="w-full sticky top-0 bg-white shadow-md px-5 py-2 flex justify-between items-center">
       <Tooltip label="Memories">

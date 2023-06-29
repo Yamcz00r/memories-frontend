@@ -8,7 +8,7 @@ const postsApi = createApi({
   endpoints: (builder) => ({
     getPosts: builder.query<PostType[], void>({
       query: () => "/post",
-      providesTags: ["Post"],
+      providesTags: [{ type: "Post", id: "LIST" }],
     }),
 
     getPostById: builder.query<PostType, string>({
