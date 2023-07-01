@@ -1,7 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Author, Comment } from "../../type";
 import PostContainer from "./Container";
-
+import fallbackImage from "/public/fallback.jpg";
+import ImageModal from "./ImageModal";
+import Counter from "./Counter";
 import {
   Avatar,
   Image,
@@ -14,6 +16,8 @@ import {
   Text,
   Divider,
 } from "@chakra-ui/react";
+import ActionButton from "./ActionButton";
+import PostHeader from "./PostHeader";
 
 interface PostProps {
   author: Pick<Author, "userName" | "id">;
@@ -32,43 +36,40 @@ export default function Post({
   reactions,
   description,
   createdAt,
+  comments,
+  id,
 }: PostProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const commentsNumber = comments.reduce((accumulator) => accumulator + 1, 0);
+
   return (
     <div className="w-full p-1">
-      <div className="flex justify-start items-center gap-4 mb-5 cursor-pointer w-min">
-        <Avatar size="md" />
-        <p className="font-bold text-xl cursor-pointer hover:underline">
-          {author.userName}
-        </p>
-      </div>
+      <PostHeader authorName={author.userName} />
       <p className="w-full my-4">{description}</p>
       <div className="w-full cursor-pointer my-3" onClick={onOpen}>
-        <img
+        <Image
           className="w-full aspect-video object-contain"
           src={`http://localhost:8080/${imageUrl}`}
+          fallbackSrc={fallbackImage}
         />
-        <Modal isOpen={isOpen} onClose={onClose} size="xl">
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>
-              <Text>Your Image</Text>
-            </ModalHeader>
-            <ModalCloseButton />
-            <div>
-              <img
-                src={`http://localhost:8080/${imageUrl}`}
-                className="w-full p-3"
-              />
-            </div>
-          </ModalContent>
-        </Modal>
+        <ImageModal imageSrc={imageUrl} onClose={onClose} isOpen={isOpen} />
       </div>
-      <Divider colorScheme="gray" color="gray.600" />
-      <div className="w-full flex justify-center items-center">
-        <button></button>
+      <Counter likeNumber={reactions} commentNumber={commentsNumber} />
+      <div className="w-full my-3 p-2 flex justify-center">
+        <ActionButton
+          type="like"
+          userId={author.id}
+          postId={id}
+          handler={() => {}}
+        />
+        <ActionButton
+          type="comment"
+          userId={author.id}
+          postId={id}
+          handler={() => {}}
+        />
       </div>
-      <Divider colorScheme="gray" color="gray.600" />
     </div>
   );
 }
