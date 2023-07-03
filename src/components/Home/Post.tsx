@@ -4,6 +4,7 @@ import PostContainer from "./Container";
 import fallbackImage from "/public/fallback.jpg";
 import ImageModal from "./ImageModal";
 import Counter from "./Counter";
+import { useAddReactionMutation } from "../../store/api/posts";
 import {
   Avatar,
   Image,
@@ -42,7 +43,7 @@ export default function Post({
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const commentsNumber = comments.reduce((accumulator) => accumulator + 1, 0);
-
+  const [addReaction] = useAddReactionMutation();
   return (
     <div className="w-full p-1">
       <PostHeader authorName={author.userName} />
@@ -61,7 +62,7 @@ export default function Post({
           type="like"
           userId={author.id}
           postId={id}
-          handler={() => {}}
+          handler={addReaction}
         />
         <ActionButton
           type="comment"
