@@ -20,6 +20,7 @@ export default function CommentMenuDropdown() {
         icon={<BiDotsHorizontalRounded />}
         variant="ghost"
       />
+      <MenuList></MenuList>
     </Menu>
   );
 }

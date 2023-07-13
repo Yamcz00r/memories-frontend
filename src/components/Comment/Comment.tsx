@@ -4,11 +4,13 @@ export default function Comment() {
   return (
     <article className="w-full flex flex-col items-center gap-4">
       <div className="w-full flex justify-between">
-        <div>
+        <div className="flex items-center justify-between gap-1">
           <Avatar size="sm" />
-          <Text size="sm">Username</Text>
-          <time dateTime="2023-06-20"></time>
+          <Text size="sm" className="font-bold">
+            Username
+          </Text>
         </div>
+        <time></time>
       </div>
     </article>
   );

@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 import ActionButton from "./ActionButton";
 import PostHeader from "./PostHeader";
+import CommentsContainer from "../Comment/CommentsContainer";
 
 interface PostProps {
   author: Pick<Author, "userName" | "id">;
@@ -71,7 +72,8 @@ export default function Post({
           handler={() => {}}
         />
       </div>
+      <Divider color="black" />
+      <CommentsContainer />
     </div>
   );
 }
-//TODO: CREATE A ACTION COMPONENT FOR LIKE EITHER A COMMENT
