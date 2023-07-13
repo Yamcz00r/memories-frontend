@@ -46,10 +46,12 @@ export default function Post({
   const commentsNumber = comments.reduce((accumulator) => accumulator + 1, 0);
   const [addReaction] = useAddReactionMutation();
   return (
-    <div className="w-full p-1">
-      <PostHeader authorName={author.userName} />
-      <p className="w-full my-4">{description}</p>
-      <div className="w-full cursor-pointer my-3" onClick={onOpen}>
+    <>
+      <div className="w-full p-3">
+        <PostHeader authorName={author.userName} createdAt={createdAt} />
+        <p className="w-full my-4">{description}</p>
+      </div>
+      <div className="w-full cursor-pointer my-3 bg-slate-300" onClick={onOpen}>
         <Image
           className="w-full aspect-video object-contain"
           src={`http://localhost:8080/${imageUrl}`}
@@ -74,6 +76,6 @@ export default function Post({
       </div>
       <Divider color="black" />
       <CommentsContainer />
-    </div>
+    </>
   );
 }

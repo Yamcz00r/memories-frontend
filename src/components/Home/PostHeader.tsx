@@ -1,16 +1,43 @@
-import { Avatar } from "@chakra-ui/react";
-
+import { Avatar, Text, Tooltip } from "@chakra-ui/react";
+import getDate from "../../utils/getDate";
+import PostHeaderActions from "./PostHeaderActions";
 interface PostHeaderProps {
   authorName: string;
+  createdAt: string;
 }
 
-export default function PostHeader({ authorName }: PostHeaderProps) {
+export default function PostHeader({ authorName, createdAt }: PostHeaderProps) {
+  const dateTime = new Date(createdAt);
+  const now = new Date();
+  const dayDiff = now.getDate() - dateTime.getDate();
+
+  const dateLabel = getDate(dateTime);
   return (
-    <div className="flex justify-start items-center gap-4 mb-5 cursor-pointer w-min">
-      <Avatar size="md" />
-      <p className="font-bold text-xl cursor-pointer hover:underline">
-        {authorName}
-      </p>
-    </div>
+    <header className="mb-5 w-full flex justify-between items-center gap-4">
+      <div className="flex gap-3">
+        <div>
+          <Avatar
+            size="md"
+            src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAHwBCQMBIgACEQEDEQH/xAAaAAEBAQEBAQEAAAAAAAAAAAAAAQIDBQQH/8QAKxABAQACAQIFAwMFAQAAAAAAAAECESEDMQQSQWFxBSJRFDKhI0OBsdET/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD8c0smjYCiFUXRCU2C1kAAT1BU9F2gAHbt3ApO65zDHO49PPzYztda3E4AVI1r7d7nwCAALE2sBdoACk7oCiALEXaAmhTV15u03rfuCeiaWmvaAzVKICxAFQFF2h87QF2JU2DUGZTdBpN8ogKbQBpfXbO12C7JWZTYNCRQXYgDU7ib0uOUkympd+vPHwAVAFEUDWuS9i1PQFNX8Eb2DlkzGsu6cIL6JVhQEBQ3pLSgKgaAEoAFSIKIsBRNkBqHCACmwBU3tVCd1RQApABFAKFAldOPz/LlO7e4g53mnYv7rFAEUELOF1RRmmmqzQUC0CsrsBCqAm/ZUAXSLLwACCCmwBexvaLrQKsZWKKGlgIAAG1svk82vt3qX3Bk863vwzqoFiRakBojKzsCobTai7DaAAACRdgbQEARQFRQSioC6IALpU2sUSNYpLy1MpJlJjjz62dvgEEAUQBThKXsAvlyI1z+Qc6yuW0iCw7cG1BNAiioAL6IACLUAAQFRQA2AQ7ACm0UBYaIoKhAUKAHYAChQSV11HJsHOhlxfgnKCwpIl7gRagoi6D0AAoJTSoAACUUQQ00gAAAKCbaSRewCjXT6XUzluHT6mUl1bjhbyoyHE7rcbh++XHfPM1wCUax6efU5w6eecvby427LLjvzY5TX5gMinltm9XX50DHqu7+BNIHU/flPcx16tdaa62fzf8AZ05u34AvZjbpZ9tvs5gGypVF2bSdiAptm9yUGtqyAoAAuizWWgTsqaNcAbNhZoBZeUUDa7S8Ux7z5BbXofSvG4+DniMc8up5c8ZrHH88b/iPOPnnnYPc6nj/AKdlnlljhjj9vGd6Pml57XHj09Vv1HwOW/8A06ctxxxnT30uf22Xf+dPCnF7RcvXXAPex+p+Cw1Onlenlcfu/pXy7sm+PmXsnV+qeC6k1vL7csvJep0/NretW/8APd4eHN1ewD2s/G/TLbP08nTsy/t87801z8bfD9U8R0Ot1Mf00kx192p5Zb8fD4rO3weiBbF17pYulH//2Q=="
+            ignoreFallback
+          />
+        </div>
+        <div className="flex flex-col items-center justify-center w-min mt-1">
+          <Text className="text-md cursor-pointer hover:underline" as="b">
+            {authorName}
+          </Text>
+          <Tooltip label={dateLabel}>
+            <Text className="text-sm self-start text-gray-400">
+              {Math.abs(dayDiff) > 0
+                ? `${Math.abs(dayDiff)} days ago`
+                : "Today"}
+            </Text>
+          </Tooltip>
+        </div>
+      </div>
+      <div>
+        <PostHeaderActions />
+      </div>
+    </header>
   );
 }
