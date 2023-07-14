@@ -4,6 +4,7 @@ import PostContainer from "./Container";
 import fallbackImage from "/public/fallback.jpg";
 import ImageModal from "./ImageModal";
 import Counter from "./Counter";
+import { AiFillLike, AiOutlineComment } from "react-icons/ai";
 import { useAddReactionMutation } from "../../store/api/posts";
 import {
   Avatar,
@@ -60,21 +61,23 @@ export default function Post({
         <ImageModal imageSrc={imageUrl} onClose={onClose} isOpen={isOpen} />
       </div>
       <Counter likeNumber={reactions} commentNumber={commentsNumber} />
-      <div className="w-full my-3 p-2 flex justify-center">
+      <div className="w-full p- flex justify-center">
         <ActionButton
-          type="like"
+          Icon={AiFillLike}
+          type="Like"
           userId={author.id}
           postId={id}
           handler={addReaction}
         />
         <ActionButton
-          type="comment"
+          Icon={AiOutlineComment}
+          type="Comment"
           userId={author.id}
           postId={id}
           handler={() => {}}
         />
       </div>
-      <Divider color="black" />
+
       <CommentsContainer />
     </>
   );

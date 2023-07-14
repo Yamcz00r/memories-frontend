@@ -1,11 +1,12 @@
-import { AiFillLike, AiOutlineComment } from "react-icons/ai";
 import CommentModal from "./CommentModal";
-import { Icon, Text, useDisclosure } from "@chakra-ui/react";
+import { Text, useDisclosure } from "@chakra-ui/react";
+import { ComponentType, ReactElement } from "react";
 interface ActionButtonProps {
-  type: "like" | "comment";
+  type: string;
   postId: string;
   userId: string;
   handler: any;
+  Icon: ComponentType;
 }
 
 export default function ActionButton({
@@ -13,40 +14,23 @@ export default function ActionButton({
   postId,
   userId,
   handler,
+  Icon,
 }: ActionButtonProps) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const likeContent = (
-    <button
-      onClick={async () => {
-        await handler(postId);
-      }}
-      className="w-full outline-none bg-transparent transition-colors duration-150 hover:bg-gray-hover rounded-md"
-    >
-      <div className="flex justify-center items-center gap-4 p-3">
-        <Icon as={AiFillLike} />
-        <Text as="b" fontSize="lg">
-          Like
-        </Text>
-      </div>
-    </button>
-  );
-
-  const commentContent = (
+  return (
     <>
       <button
-        onClick={onOpen}
+        onClick={async () => {
+          await handler(postId);
+        }}
         className="w-full outline-none bg-transparent transition-colors duration-150 hover:bg-gray-hover rounded-md"
       >
         <div className="flex justify-center items-center gap-4 p-3">
-          <Icon as={AiOutlineComment} />
+          <Icon />
           <Text as="b" fontSize="lg">
-            Comment
+            {type}
           </Text>
         </div>
       </button>
-      <CommentModal isOpen={isOpen} onClose={onClose} postId={postId} />
     </>
   );
-  return <>{type === "comment" ? commentContent : likeContent}</>;
 }
