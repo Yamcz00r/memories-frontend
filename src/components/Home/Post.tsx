@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Author, Comment } from "../../type";
+import { Author, CommentType } from "../../type";
 import PostContainer from "./Container";
 import fallbackImage from "/public/fallback.jpg";
 import ImageModal from "./ImageModal";
@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import ActionButton from "./ActionButton";
 import PostHeader from "./PostHeader";
-import CommentsContainer from "../Comment/CommentsContainer";
+import Comments from "../Comment/Comments";
 
 interface PostProps {
   author: Pick<Author, "userName" | "id">;
@@ -28,7 +28,7 @@ interface PostProps {
   reactions: number | null;
   description: string;
   createdAt: string;
-  comments: Comment[];
+  comments: CommentType[];
   id: string;
   tag: string[];
 }
@@ -61,7 +61,7 @@ export default function Post({
         <ImageModal imageSrc={imageUrl} onClose={onClose} isOpen={isOpen} />
       </div>
       <Counter likeNumber={reactions} commentNumber={commentsNumber} />
-      <div className="w-full p- flex justify-center">
+      <div className="w-full  flex justify-center">
         <ActionButton
           Icon={AiFillLike}
           type="Like"
@@ -77,8 +77,7 @@ export default function Post({
           handler={() => {}}
         />
       </div>
-
-      <CommentsContainer />
+      <Comments comments={comments} postId={id} />
     </>
   );
 }

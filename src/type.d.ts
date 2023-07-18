@@ -29,7 +29,7 @@ export interface Author {
   updatedAt: string;
 }
 
-export interface Comment {
+export interface CommentType {
   id: string;
   authorId: string;
   content: string;
