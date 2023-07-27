@@ -33,6 +33,12 @@ interface CommentBody {
   token: string | null;
 }
 
+interface CreatePostBody {
+  token: string | null;
+  image: FormDataEntryValue | null;
+  description: FormDataEntryValue | null;
+}
+
 const postsApi = createApi({
   reducerPath: "postApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8080/content" }),
