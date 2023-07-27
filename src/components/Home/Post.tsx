@@ -30,7 +30,6 @@ interface PostProps {
   createdAt: string;
   comments: CommentType[];
   id: string;
-  tag: string[];
 }
 
 export default function Post({
@@ -49,7 +48,12 @@ export default function Post({
   return (
     <>
       <div className="w-full p-3">
-        <PostHeader authorName={author.userName} createdAt={createdAt} />
+        <PostHeader
+          authorId={author.id}
+          postId={id}
+          authorName={author.userName}
+          createdAt={createdAt}
+        />
         <p className="w-full my-4">{description}</p>
       </div>
       <div className="w-full cursor-pointer my-3 bg-slate-300" onClick={onOpen}>

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { PostType, CommentType } from "../../type";
+import type { PostType, CommentType, PostDeleteResponse } from "../../type";
 
 interface PostResponse {
   posts: {
@@ -22,6 +22,11 @@ interface CommentResponse {
   };
 }
 
+interface DeletePostBody {
+  token: string | null;
+  postId: string;
+}
+
 interface CommentBody {
   postId: string;
   content: string;
@@ -40,6 +45,7 @@ const postsApi = createApi({
     getPostById: builder.query<PostType, string>({
       query: (id) => `/post/${id}`,
     }),
+
     postComment: builder.mutation<CommentResponse, CommentBody>({
       query: (body) => ({
         url: `/comment`,
@@ -51,6 +57,16 @@ const postsApi = createApi({
           postId: body.postId,
           content: body.content,
         },
+      }),
+      invalidatesTags: [{ type: "Post", id: "LIST" }],
+    }),
+    deletePost: builder.mutation<PostDeleteResponse, DeletePostBody>({
+      query: (body) => ({
+        url: `/post/${body.postId}`,
+        headers: {
+          Authorization: `Bearer ${body.token}`,
+        },
+        method: "DELETE",
       }),
       invalidatesTags: [{ type: "Post", id: "LIST" }],
     }),
@@ -68,6 +84,7 @@ export const {
   useGetPostsQuery,
   useAddReactionMutation,
   usePostCommentMutation,
+  useDeletePostMutation,
 } = postsApi;
 
 export default postsApi;

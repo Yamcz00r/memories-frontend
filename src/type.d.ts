@@ -10,7 +10,7 @@ export type TokenResponse = {
 export interface PostType {
   id: string;
   description: string;
-  tag: string[];
+
   imageUrl: string;
   reactions: number | null;
   authorId: string;
@@ -18,6 +18,17 @@ export interface PostType {
   updatedAt: string;
   comments: Comment[];
   author: Pick<Author, "userName" | "id">;
+}
+
+export interface PostDeleteResponse {
+  id: string;
+  description: string;
+
+  imageUrl: string;
+  reactions: number | null;
+  authorId: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Author {

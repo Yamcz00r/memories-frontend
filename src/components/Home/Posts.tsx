@@ -13,11 +13,19 @@ import {
 interface PostsProps {
   posts: PostType[] | undefined;
   isLoading: boolean;
+  loggedInUserId: string;
 }
 
 export default function Posts({ posts, isLoading }: PostsProps) {
   return (
     <>
+      {!posts && !isLoading && (
+        <Center>
+          <Text as="b" fontSize="3xl">
+            No posts found...
+          </Text>
+        </Center>
+      )}
       {isLoading ? (
         <Modal isOpen={isLoading} onClose={() => {}}>
           <ModalOverlay />
@@ -37,7 +45,6 @@ export default function Posts({ posts, isLoading }: PostsProps) {
               description={post.description}
               id={post.id}
               reactions={post.reactions}
-              tag={post.tag}
               key={post.id}
             ></Post>
           </PostContainer>

@@ -1,12 +1,22 @@
 import { Avatar, Text, Tooltip } from "@chakra-ui/react";
 import getDate from "../../utils/getDate";
 import PostHeaderActions from "./PostHeaderActions";
+import { useAppSelector } from "../../store/hooks";
+import { selectUserId } from "../../store/slice/auth";
 interface PostHeaderProps {
   authorName: string;
   createdAt: string;
+  postId: string;
+  authorId: string;
 }
 
-export default function PostHeader({ authorName, createdAt }: PostHeaderProps) {
+export default function PostHeader({
+  authorName,
+  createdAt,
+  postId,
+  authorId,
+}: PostHeaderProps) {
+  const loggedInUserId = useAppSelector(selectUserId);
   const dateTime = new Date(createdAt);
   const now = new Date();
   const dayDiff = now.getDate() - dateTime.getDate();
@@ -36,7 +46,7 @@ export default function PostHeader({ authorName, createdAt }: PostHeaderProps) {
         </div>
       </div>
       <div>
-        <PostHeaderActions />
+        {authorId === loggedInUserId && <PostHeaderActions postId={postId} />}
       </div>
     </header>
   );
