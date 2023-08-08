@@ -22,6 +22,7 @@ export default function Home() {
     isLoading: postsIsLoading,
   } = useGetPostsQuery();
   dispatch(setLoggedInUserId(user?.userInfo.id));
+  bbbbbbbbbbbbbbbbbbbbbbbbbb;
   return (
     <TokenProvider>
       <main className="bg-slate-100 w-full mb-10 min-h-screen">

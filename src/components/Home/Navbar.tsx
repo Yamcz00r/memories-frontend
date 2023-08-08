@@ -5,9 +5,11 @@ import {
   InputLeftElement,
   Tooltip,
 } from "@chakra-ui/react";
+import { KeyboardEvent, useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 import type { UserInfo } from "../../store/api/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 type NavbarProps = {
   user: UserInfo | undefined;
   error: any;
@@ -15,6 +17,15 @@ type NavbarProps = {
 };
 
 export default function Navbar({ user, error, isLoading }: NavbarProps) {
+  const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState("");
+
+  const redirectHandler = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter") {
+      navigate(`/search?q=${searchValue}`);
+    }
+  };
+
   return (
     <nav className="w-full sticky z-10 top-0 bg-white shadow-md  px-5 py-2 flex justify-between items-center">
       <Tooltip label="Memories">
@@ -24,11 +35,16 @@ export default function Navbar({ user, error, isLoading }: NavbarProps) {
       </Tooltip>
       <div>
         <Tooltip label="Search bar">
-          <InputGroup onClick={(e) => console.log(e)}>
+          <InputGroup onKeyUp={redirectHandler}>
             <InputLeftElement>
               <SearchIcon color="gray.300" />
             </InputLeftElement>
-            <Input size="md" width="xl" placeholder="Search on memories" />
+            <Input
+              onChange={(e) => setSearchValue(e.target.value)}
+              size="md"
+              width="xl"
+              placeholder="Search on memories"
+            />
           </InputGroup>
         </Tooltip>
       </div>
