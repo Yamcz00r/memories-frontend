@@ -14,9 +14,10 @@ type NavbarProps = {
   user: UserInfo | undefined;
   error: any;
   isLoading: boolean;
+  value?: string | null;
 };
 
-export default function Navbar({ user, error, isLoading }: NavbarProps) {
+export default function Navbar({ value, user, error, isLoading }: NavbarProps) {
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
 
@@ -40,6 +41,7 @@ export default function Navbar({ user, error, isLoading }: NavbarProps) {
               <SearchIcon color="gray.300" />
             </InputLeftElement>
             <Input
+              value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               size="md"
               width="xl"

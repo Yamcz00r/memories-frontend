@@ -51,7 +51,9 @@ const postsApi = createApi({
     getPostById: builder.query<PostType, string>({
       query: (id) => `/post/${id}`,
     }),
-
+    searchPost: builder.query<PostType[], string | null>({
+      query: (q) => `/search?q=${q}`,
+    }),
     postComment: builder.mutation<CommentResponse, CommentBody>({
       query: (body) => ({
         url: `/comment`,
@@ -91,6 +93,7 @@ export const {
   useAddReactionMutation,
   usePostCommentMutation,
   useDeletePostMutation,
+  useSearchPostQuery,
 } = postsApi;
 
 export default postsApi;

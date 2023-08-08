@@ -8,6 +8,7 @@ import { store } from "./store";
 import { Provider } from "react-redux/es/exports";
 import Signup from "./routes/signup";
 import Home from "./routes/home";
+import Search from "./routes/search";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/search",
+    element: <Search />,
   },
 ]);
 
