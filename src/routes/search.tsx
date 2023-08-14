@@ -11,7 +11,7 @@ export default function Search() {
   const token = useAppSelector(selectToken);
   const storageToken = localStorage.getItem("token");
   const query = searchParams.get("q");
-  const loggedInUserId = useAppSelector()
+
   const {
     data: user,
     error: userError,
@@ -23,7 +23,7 @@ export default function Search() {
     <>
       <main className="bg-slate-100 w-full mb-10 min-h-screen">
         <Navbar user={user} error={userError} isLoading={userIsLoading} />
-        <Posts posts={data} isLoading={isLoading} loggedInUserId=""/>
+        <Posts posts={data} isLoading={isLoading} />
         <Footer />
       </main>
     </>

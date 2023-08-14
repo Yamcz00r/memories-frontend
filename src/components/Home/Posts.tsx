@@ -13,7 +13,7 @@ import {
 interface PostsProps {
   posts: PostType[] | undefined;
   isLoading: boolean;
-  loggedInUserId: string;
+  loggedInUserId?: string;
 }
 
 export default function Posts({ posts, isLoading }: PostsProps) {
