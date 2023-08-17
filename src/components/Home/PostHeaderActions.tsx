@@ -4,7 +4,6 @@ import {
   MenuList,
   MenuItem,
   IconButton,
-  Icon,
   useToast,
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
@@ -24,7 +23,7 @@ export default function PostHeaderActions({ postId }: PostHeaderActionsProps) {
   const handlePostDelete = async (id: string) => {
     await deletePost({
       token,
-      postId: postId,
+      postId: id,
     });
     toast({
       status: "success",
