@@ -1,5 +1,5 @@
 import likeImg from "/public/563_facebook_like.jpg";
-import { Icon, Image, Text } from "@chakra-ui/react";
+import {  Text } from "@chakra-ui/react";
 
 interface CounterProps {
   likeNumber: number | null;

@@ -25,12 +25,12 @@ export default function Home() {
   
   return (
     <TokenProvider>
-      <main className="bg-slate-100 w-full mb-10 min-h-screen">
+      <main className="bg-white w-full mb-10 min-h-screen">
         <Navbar user={user} error={userError} isLoading={userIsLoading} />
         <AddPostContainer userName={user?.userInfo.userName} />
         <Posts posts={data?.posts} isLoading={postsIsLoading} />
-        <Footer />
       </main>
+      <Footer />
     </TokenProvider>
   );
 }

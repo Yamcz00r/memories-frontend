@@ -17,11 +17,13 @@ export default function PostHeader({
   authorId,
 }: PostHeaderProps) {
   const loggedInUserId = useAppSelector(selectUserId);
-  const dateTime = new Date(createdAt);
+  const createdDate = new Date(createdAt);
   const now = new Date();
-  const dayDiff = now.getDate() - dateTime.getDate();
+  // @ts-ignore
+  const timeDifference: any = now - createdDate;
+  const differenceInDays: any = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
 
-  const dateLabel = getDate(dateTime);
+  const dateLabel = getDate(createdDate);
   return (
     <header className="mb-5 w-full flex justify-between items-center gap-4">
       <div className="flex gap-3">
@@ -38,8 +40,8 @@ export default function PostHeader({
           </Text>
           <Tooltip label={dateLabel}>
             <Text className="text-sm self-start text-gray-400">
-              {Math.abs(dayDiff) > 0
-                ? `${Math.abs(dayDiff)} days ago`
+              {Math.abs(differenceInDays) > 0
+                ? `${Math.abs(differenceInDays)} days ago`
                 : "Today"}
             </Text>
           </Tooltip>
